@@ -3,6 +3,8 @@ Helping you set up CSS Critic with your project
 
 Integrating [CSS Critic](http://cburgmer.github.io/csscritic/) into your project isn't difficult. But it helps to have an example to look at, doesn't it?
 
+<img src="testsuite_in_action.png" alt="The VanillaJS' test suite in action" style="width: 600px;"/>
+
 Examples
 ========
 
