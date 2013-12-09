@@ -7,15 +7,6 @@
     <body>
         <!-- The application's HTML -->
         <section id="todoapp">
-            <header id="header">
-                <h1>todos</h1>
-                <input id="new-todo" placeholder="What needs to be done?" autofocus>
-            </header>
-            <section id="main">
-                <input id="toggle-all" type="checkbox">
-                <label for="toggle-all">Mark all as complete</label>
-                <ul id="todo-list"></ul>
-            </section>
             <footer id="footer">
                 <span id="todo-count"></span>
                 <ul id="filters">
@@ -32,12 +23,6 @@
                 <button id="clear-completed">Clear completed</button>
             </footer>
         </section>
-        <footer id="info">
-            <p>Double-click to edit a todo</p>
-            <p>Created by <a href="http://twitter.com/oscargodson">Oscar Godson</a></p>
-            <p>Refactored by <a href="https://github.com/cburgmer">Christoph Burgmer</a></p>
-            <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-        </footer>
 
         <!-- The view manipulating bits of the application -->
         <script src="src/js/helpers.js"></script>
@@ -49,8 +34,8 @@
             var template = new app.Template(),
                 view = new app.View(this.template);
 
+            view.render('setFilter', 'active');
             view.render('clearCompletedButton', {completed: 0, visible: false});
-            view.render('contentBlockVisibility', {visible: false});
         </script>
     </body>
 </html>

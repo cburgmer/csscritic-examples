@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="src/base.css">
+    </head>
+    <body>
+        <!-- The application's HTML -->
+        <section id="todoapp">
+            <section id="main">
+                <ul id="todo-list"></ul>
+            </section>
+        </section>
+
+        <!-- The view manipulating bits of the application -->
+        <script src="src/js/helpers.js"></script>
+        <script src="src/js/template.js"></script>
+        <script src="src/js/view.js"></script>
+
+        <!-- Set up the view state -->
+        <script>
+            var template = new app.Template(),
+                view = new app.View(this.template);
+
+            view.render('showEntries', [{
+                title: 'an active entry',
+                completed: false
+            }]);
+        </script>
+    </body>
+</html>
