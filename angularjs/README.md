@@ -15,4 +15,4 @@ What is to see here?
 
 AngularJS applications have an ingrained support for the "separation of concerns" principle. As such setting up view tests is very simple.
 
-Looking at [`test/ui/initial_view.html`](test/ui/single_active_entry.html) you'll see a test case includes the linked CSS, a HTML fixture, the AngularJS dependency and a mocked out Controller. A desired (and dynamic) page state can then easily be created via manipulating the scope that is injected into the controller by Angular. The real controller, the application object or any persistance layer is not needed in the tests.
+Looking at [`test/ui/single_active_entry.html`](test/ui/single_active_entry.html) you'll see a test case includes the linked CSS, a HTML fixture, the AngularJS dependency and a mocked out controller. A desired (and dynamic) page state can then easily be created via manipulating the scope that is injected into the controller by AngularJS. The real controller, the application object or any persistance layer is not needed in the tests.

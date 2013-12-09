@@ -12,6 +12,8 @@
         window.onload = function() {
             csscritic.addReporter(csscritic.BasicHTMLReporter());
             csscritic.add('test/ui/initial_view.html');
+            csscritic.add('test/ui/single_active_entry.html');
+            csscritic.add('test/ui/single_completed_entry.html');
             csscritic.execute();
         };
     </script>

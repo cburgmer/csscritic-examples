@@ -1,0 +1,40 @@
+<!doctype html>
+<html ng-app>
+    <head>
+        <meta charset="utf-8">
+        <title>AngularJS</title>
+        <link rel="stylesheet" href="src/base.css">
+    </head>
+    <body>
+        <!-- The application's HTML -->
+        <section id="todoapp" ng-controller="TodoCtrl">
+            <section id="main" ng-show="todos.length" ng-cloak>
+                <ul id="todo-list">
+                    <li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
+                        <div class="view">
+                            <input class="toggle" type="checkbox" ng-model="todo.completed">
+                            <label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
+                            <button class="destroy" ng-click="removeTodo(todo)"></button>
+                        </div>
+                        <form ng-submit="doneEditing(todo)">
+                            <input class="edit" ng-trim="false" ng-model="todo.title" todo-escape="revertEditing(todo)" ng-blur="doneEditing(todo)" todo-focus="todo == editedTodo">
+                        </form>
+                    </li>
+                </ul>
+            </section>
+        </section>
+
+        <!-- Dependencies -->
+        <script src="src/bower_components/angular/angular.js"></script>
+
+        <!-- Set up the view state -->
+        <script>
+            function TodoCtrl($scope) {
+                $scope.todos = [{
+                    title: 'an active entry',
+                    completed: false
+                }];
+            }
+        </script>
+    </body>
+</html>
