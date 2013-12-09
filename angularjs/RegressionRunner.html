@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Regression Runner</title>
+    <meta charset="utf-8"/>
+
+    <link rel="stylesheet" type="text/css" href="src/bower_components/csscritic/dist/csscritic.min.css">
+
+    <script type="text/javascript" src="src/bower_components/csscritic/dist/csscritic.allinone.js"></script>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            csscritic.addReporter(csscritic.BasicHTMLReporter());
+            csscritic.add('test/ui/initial_view.html');
+            csscritic.execute();
+        };
+    </script>
+
+</head>
+
+<body>
+</body>
+</html>
