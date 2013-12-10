@@ -30,13 +30,17 @@ Modular HTML
 
 The application consists of different partial templates that represent a component each. A template can easily be included using
 
-    <ng-include src="'templates/MY_TEMPLATE.html'"></ng-include>
+```html
+<ng-include src="'templates/MY_TEMPLATE.html'"></ng-include>
+```
 
 This allows the test cases to include production code for HTML (CSS and JS are naturally easy to link in). Also, this helps structure the HTML into small components that can be tested independently.
 
 There is one issue with template includes: paths in AngularJS' includes are not relative to the including HTML file (violating the pattern defined by CSS), but relative to the outer document running the application. Thus a cascaded of template partials is difficult to include. One solution can be seen in [`test/ui/initial_view.html`](test/ui/initial_view.html). Here the partials that we do not want to test are "mocked out" using an empty template:
 
-    <script type="text/ng-template" id="templates/list.html"></script>
+```html
+<script type="text/ng-template" id="templates/list.html"></script>
+```
 
 Dynamic view
 ------------
@@ -45,23 +49,27 @@ Most views only become completly rendered after some JavaScript code has run man
 
 Test case [`test/ui/single_active_entry.html`](test/ui/single_active_entry.html) shows a mocked controller manipulating the injected `$scope` object, that is then reflected in the view
 
-    function TodoCtrl($scope) {
-        $scope.todos = [{
-            title: 'an active entry',
-            completed: false
-        }];
-    }
+```js
+function TodoCtrl($scope) {
+    $scope.todos = [{
+        title: 'an active entry',
+        completed: false
+    }];
+}
+```
 
 Setting up a production-like HTML tree
 --------------------------------------
 
 The TodoMVC application was not designed with independent components in mind. Thus testing parts of the components is not straight forward. For example, the correct styling is only applied if the TODO item list is included in a `#main` section again included in `#todoapp`. The test case is careful to mimic the tree as it exists in the live application.
 
-    <section id="todoapp" ng-controller="TodoCtrl">
-        <section id="main">
-            <ng-include src="'src/templates/list.html'"></ng-include>
-        </section>
+```html
+<section id="todoapp" ng-controller="TodoCtrl">
+    <section id="main">
+        <ng-include src="'src/templates/list.html'"></ng-include>
     </section>
+</section>
+```
 
 In a clearly-separated component such setup would probably not be needed.
 
@@ -72,11 +80,15 @@ The test cases create an alternative application using their own controller. Thi
 
 The application is bootstrapped by calling
 
-    angular.bootstrap(document.querySelector('html'));
+```js
+angular.bootstrap(document.querySelector('html'));
+```
 
 while the controller is either referenced in the included template, or is manually invoked inside the test
 
-    <section id="todoapp" ng-controller="TodoCtrl">
+```html
+<section id="todoapp" ng-controller="TodoCtrl">
+```
 
 One special treatment is needed in addition, as AngularJS by default catches errors thrown in the application without reporting them back. To allow CSS Critic to inform you about errors in your setup, the [`test/ui/angular_testhelper.js`](test/ui/angular_testhelper.js) makes sure to rethrow errors otherwise hidden away.
 
