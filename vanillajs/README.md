@@ -6,7 +6,7 @@ This is a pure JavaScript application based on the [TodoMVC implementation](http
 Get started
 ===========
 
-See the [visual regression test suite](RegressionRunner.html).
+See the [visual regression test suite](RegressionRunner.html) and [all test cases](test/ui/).
 
 Launch [`src/index.html`](src/index.html) to open the application.
 

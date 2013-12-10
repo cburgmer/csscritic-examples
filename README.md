@@ -10,8 +10,8 @@ Examples
 
 Here's a list of examples currently featured here:
 
-- [Vanilla JavaScript](vanillajs) (just plain JavaScript, no framework needed) built on [TodoMVC](https://github.com/tastejs/todomvc/tree/gh-pages/vanilla-examples/vanillajs)
-- [Angular JS](angularjs) built on [TodoMVC](https://github.com/tastejs/todomvc/tree/gh-pages/architecture-examples/angularjs)
+- [Vanilla JavaScript](vanillajs/) (just plain JavaScript, no framework needed) built on [TodoMVC](https://github.com/tastejs/todomvc/tree/gh-pages/vanilla-examples/vanillajs)
+- [Angular JS](angularjs/) built on [TodoMVC](https://github.com/tastejs/todomvc/tree/gh-pages/architecture-examples/angularjs)
 
 Contribute
 ==========
