@@ -15,7 +15,15 @@ What is to see here?
 
 AngularJS applications have an ingrained support for the "separation of concerns" principle. As such setting up view tests is pretty simple.
 
-Looking at [`test/ui/single_active_entry.html`](test/ui/single_active_entry.html) you'll see a test case includes the linked CSS, a HTML template, the AngularJS dependency and a mocked out controller. A desired (and dynamic) page state can then easily be created via manipulating the scope that is injected into the controller by AngularJS. The real controller, the application object or any persistance layer is not needed in the tests.
+Looking at [`test/ui/single_active_entry.html`](test/ui/single_active_entry.html) you'll see a test case includes
+
+- the linked CSS,
+- a HTML template,
+- the AngularJS dependency,
+- a mocked out controller and
+- the application bootstrap helper.
+
+The real controller, the application object or any persistance layer is not needed in the tests.
 
 Modular HTML
 ------------
@@ -30,6 +38,20 @@ There is one issue with template includes: paths in AngularJS' includes are not 
 
     <script type="text/ng-template" id="templates/list.html"></script>
 
+Dynamic view
+------------
+
+Most views only become completly rendered after some JavaScript code has run manipulating the view state. Triggering this in tests is straightforward with Angular.
+
+Test case [`test/ui/single_active_entry.html`](test/ui/single_active_entry.html) shows a mocked controller manipulating the injected `$scope` object, that is then reflected in the view
+
+    function TodoCtrl($scope) {
+        $scope.todos = [{
+            title: 'an active entry',
+            completed: false
+        }];
+    }
+
 Setting up a production-like HTML tree
 --------------------------------------
 
@@ -42,3 +64,19 @@ The TodoMVC application was not designed with independent components in mind. Th
     </section>
 
 In a clearly-separated component such setup would probably not be needed.
+
+AngularJS bits
+--------------
+
+The test cases create an alternative application using their own controller. This allows for writing slim test cases keeping out any code that we do not want to test.
+
+The application is bootstrapped by calling
+
+    angular.bootstrap(document.querySelector('html'));
+
+while the controller is either referenced in the included template, or is manually invoked inside the test
+
+    <section id="todoapp" ng-controller="TodoCtrl">
+
+One special treatment is needed in addition, as AngularJS by default catches errors thrown in the application without reporting them back. To allow CSS Critic to inform you about errors in your setup, the [`test/ui/angular_testhelper.js`](test/ui/angular_testhelper.js) makes sure to rethrow errors otherwise hidden away.
+
