@@ -61,7 +61,7 @@ function TodoCtrl($scope) {
 Setting up a production-like HTML tree
 --------------------------------------
 
-The TodoMVC application was not designed with independent components in mind. Thus testing parts of the components is not straight forward. For example, the correct styling is only applied if the TODO item list is included in a `#main` section again included in `#todoapp`. The test case is careful to mimic the tree as it exists in the live application.
+The TodoMVC application was not designed with independent components in mind. Thus testing parts of the components is not straightforward. For example, the correct styling is only applied if the TODO item list is included in a `#main` section again included in `#todoapp`. The test case is careful to mimic the tree as it exists in the live application.
 
 ```html
 <section id="todoapp" ng-controller="TodoCtrl">

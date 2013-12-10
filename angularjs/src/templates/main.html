@@ -10,23 +10,7 @@
         <label for="toggle-all">Mark all as complete</label>
         <ng-include src="'templates/list.html'"></ng-include>
     </section>
-    <footer id="footer" ng-show="todos.length" ng-cloak>
-        <span id="todo-count"><strong>{{remainingCount}}</strong>
-            <ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
-        </span>
-        <ul id="filters">
-            <li>
-                <a ng-class="{selected: location.path() == '/'} " href="#/">All</a>
-            </li>
-            <li>
-                <a ng-class="{selected: location.path() == '/active'}" href="#/active">Active</a>
-            </li>
-            <li>
-                <a ng-class="{selected: location.path() == '/completed'}" href="#/completed">Completed</a>
-            </li>
-        </ul>
-        <button id="clear-completed" ng-click="clearCompletedTodos()" ng-show="completedCount">Clear completed ({{completedCount}})</button>
-    </footer>
+    <ng-include src="'templates/footer.html'"></ng-include>
 </section>
 <footer id="info">
     <p>Double-click to edit a todo</p>
