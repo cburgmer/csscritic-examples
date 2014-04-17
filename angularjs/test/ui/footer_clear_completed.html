@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <!-- The CSS we are testing -->
+        <link rel="stylesheet" href="src/base.css">
+    </head>
+    <body>
+        <!-- The application's HTML -->
+        <section id="todoapp" ng-controller="TodoCtrl">
+            <ng-include src="'src/templates/footer.html'"></ng-include>
+        </section>
+
+        <!-- Dependencies -->
+        <script src="src/bower_components/angular/angular.js"></script>
+
+        <!-- Set up the view state -->
+        <script>
+            function TodoCtrl($scope) {
+                $scope.completedCount = 3;
+                $scope.location = {
+                    path: function () {
+                        return '/';
+                    }
+                };
+                $scope.remainingCount = 0;
+                $scope.todos = [{
+                    title: 'an active entry',
+                    completed: false
+                }];
+            }
+        </script>
+
+        <!-- Bootstrap application -->
+        <script src="angular_testhelper.js"></script>
+    </body>
+</html>

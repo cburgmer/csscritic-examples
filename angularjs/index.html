@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>CSS Critic Examples by cburgmer</title>
+
+    <link rel="stylesheet" href="../stylesheets/styles.css">
+    <link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="../stylesheets/examples.css">
+
+    <link rel="stylesheet" type="text/css" href="src/bower_components/csscritic/dist/csscritic.min.css">
+    <script type="text/javascript" src="src/bower_components/csscritic/dist/csscritic.allinone.js"></script>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            csscritic.addReporter(csscritic.BasicHTMLReporter());
+            csscritic.add('test/ui/initial_view.html');
+            csscritic.add('test/ui/single_active_entry.html');
+            csscritic.add('test/ui/single_completed_entry.html');
+            csscritic.add('test/ui/multiple_entries.html');
+            csscritic.add('test/ui/footer_active_view.html');
+            csscritic.add('test/ui/footer_clear_completed.html');
+            csscritic.add('test/ui/footer_one_entry_left.html');
+            csscritic.add('test/ui/footer_two_entries_left.html');
+            csscritic.execute();
+        };
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="csscritic_basichtmlreporter"></div>
+<article class="markdown-body entry-content" itemprop="mainContentOfPage"><h1>
+<a name="user-content-angularjs" class="anchor" href="#angularjs"><span class="octicon octicon-link"></span></a>AngularJS</h1>
+
+<p>This is an <a href="http://angularjs.org/">AngularJS</a>-based application derived from the <a href="https://github.com/tastejs/todomvc/tree/gh-pages/architecture-examples/angularjs">TodoMVC implementation</a>.</p>
+
+<h1>
+<a name="user-content-get-started" class="anchor" href="#get-started"><span class="octicon octicon-link"></span></a>Get started</h1>
+
+<p>See the <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/RegressionRunner.html">visual regression test suite</a> and <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/test/ui">all test cases</a>.</p>
+
+<p>Launch <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/src/index.html"><code>src/index.html</code></a> to open the application.</p>
+
+<h1>
+<a name="user-content-what-is-to-see-here" class="anchor" href="#what-is-to-see-here"><span class="octicon octicon-link"></span></a>What is to see here?</h1>
+
+<p>AngularJS applications have an ingrained support for the "separation of concerns" principle. As such setting up view tests is pretty simple.</p>
+
+<p>Looking at <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/test/ui/single_active_entry.html"><code>test/ui/single_active_entry.html</code></a> you'll see a test case includes</p>
+
+<ul>
+<li>the linked CSS,</li>
+<li>a HTML template,</li>
+<li>the AngularJS dependency,</li>
+<li>a mocked out controller and</li>
+<li>the application bootstrap helper.</li>
+</ul><p>The real controller, the application object or any persistance layer is not needed in the tests.</p>
+
+<h2>
+<a name="user-content-modular-html" class="anchor" href="#modular-html"><span class="octicon octicon-link"></span></a>Modular HTML</h2>
+
+<p>The application consists of different partial templates that represent a component each. A template can easily be included using</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;ng-include</span> <span class="na">src=</span><span class="s">"'templates/MY_TEMPLATE.html'"</span><span class="nt">&gt;&lt;/ng-include&gt;</span>
+</pre></div>
+
+<p>This allows the test cases to include production code for HTML (CSS and JS are naturally easy to link in). Also, this helps structure the HTML into small components that can be tested independently.</p>
+
+<p>There is one issue with template includes: paths in AngularJS' includes are not relative to the including HTML file (violating the pattern defined by CSS), but relative to the outer document running the application. Thus a cascaded of template partials is difficult to include. One solution can be seen in <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/test/ui/initial_view.html"><code>test/ui/initial_view.html</code></a>. Here the partials that we do not want to test are "mocked out" using an empty template:</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/ng-template"</span> <span class="na">id=</span><span class="s">"templates/list.html"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+<h2>
+<a name="user-content-dynamic-view" class="anchor" href="#dynamic-view"><span class="octicon octicon-link"></span></a>Dynamic view</h2>
+
+<p>Most views only become completly rendered after some JavaScript code has run manipulating the view state. Triggering this in tests is straightforward with Angular.</p>
+
+<p>Test case <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/test/ui/single_active_entry.html"><code>test/ui/single_active_entry.html</code></a> shows a mocked controller manipulating the injected <code>$scope</code> object, that is then reflected in the view</p>
+
+<div class="highlight highlight-js"><pre><span class="kd">function</span> <span class="nx">TodoCtrl</span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="p">[{</span>
+        <span class="nx">title</span><span class="o">:</span> <span class="s1">'an active entry'</span><span class="p">,</span>
+        <span class="nx">completed</span><span class="o">:</span> <span class="kc">false</span>
+    <span class="p">}];</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="user-content-setting-up-a-production-like-html-tree" class="anchor" href="#setting-up-a-production-like-html-tree"><span class="octicon octicon-link"></span></a>Setting up a production-like HTML tree</h2>
+
+<p>The TodoMVC application was not designed with independent components in mind. Thus testing parts of the components is not straightforward. For example, the correct styling is only applied if the TODO item list is included in a <code>#main</code> section again included in <code>#todoapp</code>. The test case is careful to mimic the tree as it exists in the live application.</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"todoapp"</span> <span class="na">ng-controller=</span><span class="s">"TodoCtrl"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"main"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ng-include</span> <span class="na">src=</span><span class="s">"'src/templates/list.html'"</span><span class="nt">&gt;&lt;/ng-include&gt;</span>
+    <span class="nt">&lt;/section&gt;</span>
+<span class="nt">&lt;/section&gt;</span>
+</pre></div>
+
+<p>In a clearly-separated component such setup would probably not be needed.</p>
+
+<h2>
+<a name="user-content-angularjs-bits" class="anchor" href="#angularjs-bits"><span class="octicon octicon-link"></span></a>AngularJS bits</h2>
+
+<p>The test cases create an alternative application using their own controller. This allows for writing slim test cases keeping out any code that we do not want to test.</p>
+
+<p>The application is bootstrapped by calling</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">angular</span><span class="p">.</span><span class="nx">bootstrap</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'html'</span><span class="p">));</span>
+</pre></div>
+
+<p>while the controller is either referenced in the included template, or is manually invoked inside the test</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"todoapp"</span> <span class="na">ng-controller=</span><span class="s">"TodoCtrl"</span><span class="nt">&gt;</span>
+</pre></div>
+
+<p>One special treatment is needed in addition, as AngularJS by default catches errors thrown in the application without reporting them back. To allow CSS Critic to inform you about errors in your setup, the <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/test/ui/angular_testhelper.js"><code>test/ui/angular_testhelper.js</code></a> makes sure to rethrow errors otherwise hidden away.</p>
+
+<h2>
+<a name="user-content-wiring-together" class="anchor" href="#wiring-together"><span class="octicon octicon-link"></span></a>Wiring together</h2>
+
+<p>The browsers limit the paths accessible out of same-origin restrictions. This makes wiring up the test suite a tiny bit more complicated. Let's look at <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/test/ui/single_active_entry.html"><code>test/ui/single_active_entry.html</code></a> for example. While the document sits under <code>test/ui/</code> the application is found under <code>../../src/</code> relativly from there. If we linked like that, Firefox would complain about accessing a restricted path. Instead we apply a small tweak. We create a symbolic link in the <code>test/ui/</code> directory via</p>
+
+<div class="highlight highlight-sh"><pre><span class="nv">$ </span>ln -s ../../src <span class="nb">test</span>/ui/src
+</pre></div>
+
+<p>from the project's root directory and link to <code>src/</code> inside the document. This allows us to write the following:</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"src/base.css"</span><span class="nt">&gt;</span>
+</pre></div>
+
+<p>If the <code>RegressionRunner.html</code> file is served through a (local) web-server, this will not be an issue whatsoever.</p></article>
+    </div>
+    <script src="../javascripts/scale.fix.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <!-- The CSS we are testing -->
+        <link rel="stylesheet" href="src/base.css">
+    </head>
+    <body>
+        <!-- stub out templates we depend on, but aren't interested in testing -->
+        <script type="text/ng-template" id="templates/list.html"></script>
+        <script type="text/ng-template" id="templates/footer.html"></script>
+
+        <!-- The application's HTML -->
+        <ng-include src="'src/templates/main.html'"></ng-include>
+
+        <!-- Dependencies -->
+        <script src="src/bower_components/angular/angular.js"></script>
+
+        <!-- Set up the view state -->
+        <script>
+            function TodoCtrl() {}
+        </script>
+
+        <!-- Bootstrap application -->
+        <script src="angular_testhelper.js"></script>
+    </body>
+</html>

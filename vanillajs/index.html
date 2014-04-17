@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>CSS Critic Examples by cburgmer</title>
+
+    <link rel="stylesheet" href="../stylesheets/styles.css">
+    <link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="../stylesheets/examples.css">
+
+    <link rel="stylesheet" type="text/css" href="bower_components/csscritic/dist/csscritic.min.css">
+    <script type="text/javascript" src="bower_components/csscritic/dist/csscritic.allinone.js"></script>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            csscritic.addReporter(csscritic.BasicHTMLReporter());
+            csscritic.add('test/ui/initial_view.html');
+            csscritic.add('test/ui/single_active_entry.html');
+            csscritic.add('test/ui/single_completed_entry.html');
+            csscritic.add('test/ui/multiple_entries.html');
+            csscritic.add('test/ui/footer_active_view.html');
+            csscritic.add('test/ui/footer_clear_completed.html');
+            csscritic.add('test/ui/footer_one_entry_left.html');
+            csscritic.add('test/ui/footer_two_entries_left.html');
+            csscritic.execute();
+        };
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="csscritic_basichtmlreporter"></div>
+<article class="markdown-body entry-content" itemprop="mainContentOfPage"><h1>
+<a name="user-content-vanilla-js" class="anchor" href="#vanilla-js"><span class="octicon octicon-link"></span></a>Vanilla JS</h1>
+
+<p>This is a pure JavaScript application based on the <a href="https://github.com/tastejs/todomvc/tree/gh-pages/vanilla-examples/vanillajs">TodoMVC implementation</a>.</p>
+
+<h1>
+<a name="user-content-get-started" class="anchor" href="#get-started"><span class="octicon octicon-link"></span></a>Get started</h1>
+
+<p>See the <a href="https://github.com/cburgmer/csscritic-examples/blob/master/vanillajs/RegressionRunner.html">visual regression test suite</a> and <a href="https://github.com/cburgmer/csscritic-examples/blob/master/vanillajs/test/ui">all test cases</a>.</p>
+
+<p>Launch <a href="https://github.com/cburgmer/csscritic-examples/blob/master/vanillajs/src/index.html"><code>src/index.html</code></a> to open the application.</p>
+
+<h1>
+<a name="user-content-what-is-to-see-here" class="anchor" href="#what-is-to-see-here"><span class="octicon octicon-link"></span></a>What is to see here?</h1>
+
+<p>The application is cleanly split into a controller, model and view. This makes visual testing very easy as we can indendently manipulate the view for testing purposes.</p>
+
+<p>Looking at <a href="https://github.com/cburgmer/csscritic-examples/blob/master/vanillajs/test/ui/single_active_entry.html"><code>test/ui/single_active_entry.html</code></a> you'll see a test case includes the linked CSS, a HTML fixture and some JavaScript view code. A desired (and dynamic) page state can then easily be created via manipulating the view object. The controller or persistance layer is not needed in the tests.</p>
+
+<h2>
+<a name="user-content-wiring-together" class="anchor" href="#wiring-together"><span class="octicon octicon-link"></span></a>Wiring together</h2>
+
+<p>The browsers limit the paths accessible out of same-origin restrictions. This makes wiring up the test suite a tiny bit more complicated. Let's look at <a href="https://github.com/cburgmer/csscritic-examples/blob/master/vanillajs/test/ui/single_active_entry.html"><code>test/ui/single_active_entry.html</code></a> for example. While the document sits under <code>test/ui/</code> the application is found under <code>../../src/</code> relativly from there. If we linked like that, Firefox would complain about accessing a restricted path. Instead we apply a small tweak. We create a symbolic link in the <code>test/ui/</code> directory via</p>
+
+<div class="highlight highlight-sh"><pre><span class="nv">$ </span>ln -s ../../src <span class="nb">test</span>/ui/src
+</pre></div>
+
+<p>from the project's root directory and link to <code>src/</code> inside the document. This allows us to write the following:</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"src/base.css"</span><span class="nt">&gt;</span>
+</pre></div>
+
+<p>If the <code>RegressionRunner.html</code> file is served through a (local) web-server, this will not be an issue whatsoever.</p></article>
+    </div>
+    <script src="../javascripts/scale.fix.js"></script>
+
+  </body>
+</html>

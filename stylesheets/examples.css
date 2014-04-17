@@ -1,0 +1,30 @@
+/* Override default style */
+.wrapper {
+  width:860px;
+  margin:0 auto;
+  width:auto;
+  margin:0;
+}
+
+article {
+    padding-right: 10px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    max-width: 30%;
+    float: left;
+}
+
+#csscritic_basichtmlreporter {
+    width: 70%;
+    float: right;
+}
+
+/* On small windows show reporter first, then text */
+@media print, screen and (max-width: 1300px) {
+    article,
+    #csscritic_basichtmlreporter {
+        float: none;
+        width: 100%;
+    }
+}
