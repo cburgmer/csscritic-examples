@@ -17,14 +17,14 @@
     <script type="text/javascript">
         window.onload = function() {
             csscritic.addReporter(csscritic.BasicHTMLReporter());
-            csscritic.add('test/ui/initial_view.html');
-            csscritic.add('test/ui/single_active_entry.html');
-            csscritic.add('test/ui/single_completed_entry.html');
-            csscritic.add('test/ui/multiple_entries.html');
-            csscritic.add('test/ui/footer_active_view.html');
-            csscritic.add('test/ui/footer_clear_completed.html');
-            csscritic.add('test/ui/footer_one_entry_left.html');
-            csscritic.add('test/ui/footer_two_entries_left.html');
+            csscritic.add('test/ui/ng_initial_view.html');
+            csscritic.add('test/ui/ng_single_active_entry.html');
+            csscritic.add('test/ui/ng_single_completed_entry.html');
+            csscritic.add('test/ui/ng_multiple_entries.html');
+            csscritic.add('test/ui/ng_footer_active_view.html');
+            csscritic.add('test/ui/ng_footer_clear_completed.html');
+            csscritic.add('test/ui/ng_footer_one_entry_left.html');
+            csscritic.add('test/ui/ng_footer_two_entries_left.html');
             csscritic.execute();
         };
     </script>
@@ -49,7 +49,7 @@
 
 <p>AngularJS applications have an ingrained support for the "separation of concerns" principle. As such setting up view tests is pretty simple.</p>
 
-<p>Looking at <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/test/ui/single_active_entry.html"><code>test/ui/single_active_entry.html</code></a> you'll see a test case includes</p>
+<p>Looking at <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/test/ui/ng_single_active_entry.html"><code>test/ui/ng_single_active_entry.html</code></a> you'll see a test case includes</p>
 
 <ul>
 <li>the linked CSS,</li>
@@ -69,7 +69,7 @@
 
 <p>This allows the test cases to include production code for HTML (CSS and JS are naturally easy to link in). Also, this helps structure the HTML into small components that can be tested independently.</p>
 
-<p>There is one issue with template includes: paths in AngularJS' includes are not relative to the including HTML file (violating the pattern defined by CSS), but relative to the outer document running the application. Thus a cascaded of template partials is difficult to include. One solution can be seen in <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/test/ui/initial_view.html"><code>test/ui/initial_view.html</code></a>. Here the partials that we do not want to test are "mocked out" using an empty template:</p>
+<p>There is one issue with template includes: paths in AngularJS' includes are not relative to the including HTML file (violating the pattern defined by CSS), but relative to the outer document running the application. Thus a cascaded of template partials is difficult to include. One solution can be seen in <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/test/ui/ng_initial_view.html"><code>test/ui/ng_initial_view.html</code></a>. Here the partials that we do not want to test are "mocked out" using an empty template:</p>
 
 <div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/ng-template"</span> <span class="na">id=</span><span class="s">"templates/list.html"</span><span class="nt">&gt;&lt;/script&gt;</span>
 </pre></div>
@@ -79,7 +79,7 @@
 
 <p>Most views only become completly rendered after some JavaScript code has run manipulating the view state. Triggering this in tests is straightforward with Angular.</p>
 
-<p>Test case <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/test/ui/single_active_entry.html"><code>test/ui/single_active_entry.html</code></a> shows a mocked controller manipulating the injected <code>$scope</code> object, that is then reflected in the view</p>
+<p>Test case <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/test/ui/ng_single_active_entry.html"><code>test/ui/ng_single_active_entry.html</code></a> shows a mocked controller manipulating the injected <code>$scope</code> object, that is then reflected in the view</p>
 
 <div class="highlight highlight-js"><pre><span class="kd">function</span> <span class="nx">TodoCtrl</span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">$scope</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="p">[{</span>
@@ -123,7 +123,7 @@
 <h2>
 <a name="user-content-wiring-together" class="anchor" href="#wiring-together"><span class="octicon octicon-link"></span></a>Wiring together</h2>
 
-<p>The browsers limit the paths accessible out of same-origin restrictions. This makes wiring up the test suite a tiny bit more complicated. Let's look at <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/test/ui/single_active_entry.html"><code>test/ui/single_active_entry.html</code></a> for example. While the document sits under <code>test/ui/</code> the application is found under <code>../../src/</code> relativly from there. If we linked like that, Firefox would complain about accessing a restricted path. Instead we apply a small tweak. We create a symbolic link in the <code>test/ui/</code> directory via</p>
+<p>The browsers limit the paths accessible out of same-origin restrictions. This makes wiring up the test suite a tiny bit more complicated. Let's look at <a href="https://github.com/cburgmer/csscritic-examples/blob/master/angularjs/test/ui/ng_single_active_entry.html"><code>test/ui/ng_single_active_entry.html</code></a> for example. While the document sits under <code>test/ui/</code> the application is found under <code>../../src/</code> relativly from there. If we linked like that, Firefox would complain about accessing a restricted path. Instead we apply a small tweak. We create a symbolic link in the <code>test/ui/</code> directory via</p>
 
 <div class="highlight highlight-sh"><pre><span class="nv">$ </span>ln -s ../../src <span class="nb">test</span>/ui/src
 </pre></div>
