@@ -47,9 +47,36 @@
 <h1>
 <a name="user-content-what-is-to-see-here" class="anchor" href="#what-is-to-see-here"><span class="octicon octicon-link"></span></a>What is to see here?</h1>
 
-<p>The application is cleanly split into a controller, model and view. This makes visual testing very easy as we can indendently manipulate the view for testing purposes.</p>
+<p>Looking at <a href="https://github.com/cburgmer/csscritic-examples/blob/master/vanillajs/test/ui/single_active_entry.html"><code>test/ui/single_active_entry.html</code></a> you'll see a test case includes</p>
 
-<p>Looking at <a href="https://github.com/cburgmer/csscritic-examples/blob/master/vanillajs/test/ui/vanilla_single_active_entry.html"><code>test/ui/vanilla_single_active_entry.html</code></a> you'll see a test case includes the linked CSS, a HTML fixture and some JavaScript view code. A desired (and dynamic) page state can then easily be created via manipulating the view object. The controller or persistance layer is not needed in the tests.</p>
+<ul>
+<li>linked CSS under test,</li>
+<li>some HTML mimicing the production environment,</li>
+<li>the application's JavaScript dependencies, and</li>
+<li>initializing code to manipulate the view for the desired test.</li>
+</ul><h2>
+<a name="user-content-dynamic-view" class="anchor" href="#dynamic-view"><span class="octicon octicon-link"></span></a>Dynamic view</h2>
+
+<p>Most views out there need JavaScript to manipulate the DOM structure from the plain HTML page. Triggering this in tests can be made straightforward if you <a href="http://martinfowler.com/bliki/PresentationDomainSeparation.html">separate the DOM from your business logic</a>. The TodoMVC application has been refactored to follow this principle and so the view here can be easily executed. The controller or persistance layer is not needed in the tests.</p>
+
+<p>Test case <a href="https://github.com/cburgmer/csscritic-examples/blob/master/vanillajs/test/ui/vanilla_single_active_entry.html"><code>test/ui/vanilla_single_active_entry.html</code></a> shows a manipulated view object which is being passed an active entry, that is then reflected in the DOM.</p>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">template</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">app</span><span class="p">.</span><span class="nx">Template</span><span class="p">(),</span>
+    <span class="nx">view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">app</span><span class="p">.</span><span class="nx">View</span><span class="p">(</span><span class="nx">template</span><span class="p">);</span>
+
+<span class="nx">view</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">'showEntries'</span><span class="p">,</span> <span class="p">[{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">'an active entry'</span><span class="p">,</span>
+    <span class="nx">completed</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">}]);</span>
+
+</pre></div>
+
+<h2>
+<a name="user-content-a-word-on-the-html" class="anchor" href="#a-word-on-the-html"><span class="octicon octicon-link"></span></a>A word on the HTML</h2>
+
+<p>Testing your CSS is only meaningful if integrated with your HTML structure. If you have some static HTML but no client-side template loading mechanism (just like the vanilla application here), then there's a challenge in getting your production code into the test.</p>
+
+<p>For the sake of simplicity we just create a test fixture (copying the parts under test from production code). Start with this approach yourself if you want. However, your tests will be much more meaningful if you are able to test the actual production HTML. One way of achieving this is introducing a templating system that allows partials that can then be independently tested.</p>
 
 <h2>
 <a name="user-content-wiring-together" class="anchor" href="#wiring-together"><span class="octicon octicon-link"></span></a>Wiring together</h2>
