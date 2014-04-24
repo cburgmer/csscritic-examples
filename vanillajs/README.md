@@ -13,7 +13,7 @@ Launch [`src/index.html`](src/index.html) to open the application.
 What is to see here?
 ====================
 
-Looking at [`test/ui/single_active_entry.html`](test/ui/single_active_entry.html) you'll see a test case includes
+Looking at [`test/ui/vanilla_single_active_entry.html`](test/ui/vanilla_single_active_entry.html) you'll see a test case includes
 
 - linked CSS under test,
 - some HTML mimicing the production environment,
