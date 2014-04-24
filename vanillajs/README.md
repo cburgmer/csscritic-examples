@@ -13,9 +13,37 @@ Launch [`src/index.html`](src/index.html) to open the application.
 What is to see here?
 ====================
 
-The application is cleanly split into a controller, model and view. This makes visual testing very easy as we can indendently manipulate the view for testing purposes.
+Looking at [`test/ui/single_active_entry.html`](test/ui/single_active_entry.html) you'll see a test case includes
 
-Looking at [`test/ui/vanilla_single_active_entry.html`](test/ui/vanilla_single_active_entry.html) you'll see a test case includes the linked CSS, a HTML fixture and some JavaScript view code. A desired (and dynamic) page state can then easily be created via manipulating the view object. The controller or persistance layer is not needed in the tests.
+- linked CSS under test,
+- some HTML mimicing the production environment,
+- the application's JavaScript dependencies, and
+- initializing code to manipulate the view for the desired test.
+
+Dynamic view
+------------
+
+Most views out there need JavaScript to manipulate the DOM structure from the plain HTML page. Triggering this in tests can be made straightforward if you [separate the DOM from your business logic](http://martinfowler.com/bliki/PresentationDomainSeparation.html). The TodoMVC application has been refactored to follow this principle and so the view here can be easily executed. The controller or persistance layer is not needed in the tests.
+
+Test case [`test/ui/vanilla_single_active_entry.html`](test/ui/vanilla_single_active_entry.html) shows a manipulated view object which is being passed an active entry, that is then reflected in the DOM.
+
+```js
+var template = new app.Template(),
+    view = new app.View(template);
+
+view.render('showEntries', [{
+    title: 'an active entry',
+    completed: false
+}]);
+
+```
+
+A word on the HTML
+------------------
+
+Testing your CSS is only meaningful if integrated with your HTML structure. If you have some static HTML but no client-side template loading mechanism (just like the vanilla application here), then there's a challenge in getting your production code into the test.
+
+For the sake of simplicity we just create a test fixture (copying the parts under test from production code). Start with this approach yourself if you want. However, your tests will be much more meaningful if you are able to test the actual production HTML. One way of achieving this is introducing a templating system that allows partials that can then be independently tested.
 
 Wiring together
 ---------------

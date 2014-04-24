@@ -49,7 +49,7 @@
         <!-- Set up the view state -->
         <script>
             var template = new app.Template(),
-                view = new app.View(this.template);
+                view = new app.View(template);
 
             view.render('clearCompletedButton', {completed: 0, visible: false});
             view.render('contentBlockVisibility', {visible: false});
