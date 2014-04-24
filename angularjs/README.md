@@ -15,7 +15,7 @@ What is to see here?
 
 AngularJS applications have an ingrained support for the "separation of concerns" principle. As such setting up view tests is pretty simple.
 
-Looking at [`test/ui/single_active_entry.html`](test/ui/single_active_entry.html) you'll see a test case includes
+Looking at [`test/ui/ng_single_active_entry.html`](test/ui/ng_single_active_entry.html) you'll see a test case includes
 
 - the linked CSS,
 - a HTML template,
@@ -36,7 +36,7 @@ The application consists of different partial templates that represent a compone
 
 This allows the test cases to include production code for HTML (CSS and JS are naturally easy to link in). Also, this helps structure the HTML into small components that can be tested independently.
 
-There is one issue with template includes: paths in AngularJS' includes are not relative to the including HTML file (violating the pattern defined by CSS), but relative to the outer document running the application. Thus a cascaded of template partials is difficult to include. One solution can be seen in [`test/ui/initial_view.html`](test/ui/initial_view.html). Here the partials that we do not want to test are "mocked out" using an empty template:
+There is one issue with template includes: paths in AngularJS' includes are not relative to the including HTML file (violating the pattern defined by CSS), but relative to the outer document running the application. Thus a cascaded of template partials is difficult to include. One solution can be seen in [`test/ui/ng_initial_view.html`](test/ui/ng_initial_view.html). Here the partials that we do not want to test are "mocked out" using an empty template:
 
 ```html
 <script type="text/ng-template" id="templates/list.html"></script>
@@ -47,7 +47,7 @@ Dynamic view
 
 Most views only become completly rendered after some JavaScript code has run manipulating the view state. Triggering this in tests is straightforward with Angular.
 
-Test case [`test/ui/single_active_entry.html`](test/ui/single_active_entry.html) shows a mocked controller manipulating the injected `$scope` object, that is then reflected in the view
+Test case [`test/ui/ng_single_active_entry.html`](test/ui/ng_single_active_entry.html) shows a mocked controller manipulating the injected `$scope` object, that is then reflected in the view
 
 ```js
 function TodoCtrl($scope) {
@@ -95,7 +95,7 @@ One special treatment is needed in addition, as AngularJS by default catches err
 Wiring together
 ---------------
 
-The browsers limit the paths accessible out of same-origin restrictions. This makes wiring up the test suite a tiny bit more complicated. Let's look at [`test/ui/single_active_entry.html`](test/ui/single_active_entry.html) for example. While the document sits under `test/ui/` the application is found under `../../src/` relativly from there. If we linked like that, Firefox would complain about accessing a restricted path. Instead we apply a small tweak. We create a symbolic link in the `test/ui/` directory via
+The browsers limit the paths accessible out of same-origin restrictions. This makes wiring up the test suite a tiny bit more complicated. Let's look at [`test/ui/ng_single_active_entry.html`](test/ui/ng_single_active_entry.html) for example. While the document sits under `test/ui/` the application is found under `../../src/` relativly from there. If we linked like that, Firefox would complain about accessing a restricted path. Instead we apply a small tweak. We create a symbolic link in the `test/ui/` directory via
 
 ```sh
 $ ln -s ../../src test/ui/src
