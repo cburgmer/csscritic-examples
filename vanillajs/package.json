@@ -1,0 +1,11 @@
+{
+  "name": "csscritic-example-vanilla",
+  "version": "0.0.0",
+  "description": "Vanilla example for CSS Critic",
+  "private": true,
+  "dependencies": {
+  },
+  "devDependencies": {
+    "csscritic": "~0.3.0"
+  }
+}
