@@ -4,11 +4,9 @@
     <title>Regression Runner</title>
     <meta charset="utf-8"/>
 
-    <link rel="stylesheet" type="text/css" href="src/bower_components/csscritic/dist/csscritic.min.css">
+    <script src="node_modules/csscritic/csscritic.js"></script>
 
-    <script type="text/javascript" src="src/bower_components/csscritic/dist/csscritic.allinone.js"></script>
-
-    <script type="text/javascript">
+    <script>
         window.onload = function() {
             csscritic.addReporter(csscritic.BasicHTMLReporter());
             csscritic.add('test/ui/ng_initial_view.html');
@@ -19,6 +17,14 @@
             csscritic.add('test/ui/ng_footer_clear_completed.html');
             csscritic.add('test/ui/ng_footer_one_entry_left.html');
             csscritic.add('test/ui/ng_footer_two_entries_left.html');
+            csscritic.add({
+                url: 'test/ui/ng_single_active_entry.html',
+                hover: '#todo-list li'
+            });
+            csscritic.add({
+                url: 'test/ui/ng_single_active_entry.html',
+                hover: 'button.destroy'
+            });
             csscritic.execute();
         };
     </script>

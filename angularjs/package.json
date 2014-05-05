@@ -1,0 +1,12 @@
+{
+  "name": "csscritic-examples-angular",
+  "version": "0.0.0",
+  "description": "AngularJS example for CSS Critic",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.2.16"
+  },
+  "devDependencies": {
+    "csscritic": "~0.3.0"
+  }
+}
