@@ -15,7 +15,7 @@
 
     <script type="text/javascript">
         window.onload = function() {
-            csscritic.addReporter(csscritic.BasicHTMLReporter());
+            csscritic.addReporter(csscritic.NiceReporter(document.querySelector('#reporter')));
             csscritic.add('test/ui/ng_initial_view.html');
             csscritic.add('test/ui/ng_single_active_entry.html');
             csscritic.add('test/ui/ng_single_completed_entry.html');
@@ -30,7 +30,7 @@
   </head>
   <body>
     <div class="wrapper">
-      <div id="csscritic_basichtmlreporter"></div>
+      <div id="reporter"></div>
 <article class="markdown-body entry-content" itemprop="mainContentOfPage"><h1>
 <a name="user-content-angularjs" class="anchor" href="#angularjs"><span class="octicon octicon-link"></span></a>AngularJS</h1>
 
