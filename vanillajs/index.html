@@ -18,6 +18,14 @@
             csscritic.addReporter(csscritic.NiceReporter(document.querySelector('#reporter')));
             csscritic.add('test/ui/vanilla_initial_view.html');
             csscritic.add('test/ui/vanilla_single_active_entry.html');
+            csscritic.add({
+                url: 'test/ui/vanilla_single_active_entry.html',
+                hover: '#todo-list li'
+            });
+            csscritic.add({
+                url: 'test/ui/vanilla_single_active_entry.html',
+                hover: '#todo-list li .destroy'
+            });
             csscritic.add('test/ui/vanilla_single_completed_entry.html');
             csscritic.add('test/ui/vanilla_multiple_entries.html');
             csscritic.add('test/ui/vanilla_footer_active_view.html');
