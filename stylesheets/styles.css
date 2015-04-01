@@ -90,13 +90,13 @@ img {
   max-width:100%;
 }
 
-.header {
+.themeHeader {
   width:270px;
   float:left;
   position:fixed;
 }
 
-.header ul {
+.themeHeader ul {
   list-style:none;
   height:40px;
 
@@ -116,14 +116,14 @@ img {
   width:270px;
 }
 
-.header li {
+.themeHeader li {
   width:89px;
   float:left;
   border-right:1px solid #d2d2d2;
   height:40px;
 }
 
-.header ul a {
+.themeHeader ul a {
   line-height:1;
   font-size:11px;
   color:#999;
@@ -138,17 +138,17 @@ strong {
   font-weight:700;
 }
 
-.header ul li + li {
+.themeHeader ul li + li {
   width:88px;
   border-left:1px solid #fff;
 }
 
-.header ul li + li + li {
+.themeHeader ul li + li + li {
   border-right:none;
   width:89px;
 }
 
-.header ul a strong {
+.themeHeader ul a strong {
   font-size:14px;
   display:block;
   color:#222;
@@ -185,13 +185,13 @@ hr {
     margin:0;
   }
 
-  .header, .section, .footer {
+  .themeHeader, .section, .footer {
     float:none;
     position:static;
     width:auto;
   }
 
-  .header {
+  .themeHeader {
     padding-right:320px;
   }
 
@@ -202,11 +202,11 @@ hr {
     margin:0 0 20px;
   }
 
-  .header a small {
+  .themeHeader a small {
     display:inline;
   }
 
-  .header ul {
+  .themeHeader ul {
     position:absolute;
     right:50px;
     top:52px;
@@ -218,11 +218,11 @@ hr {
     word-wrap:break-word;
   }
 
-  .header {
+  .themeHeader {
     padding:0;
   }
 
-  .header ul, .header p.view {
+  .themeHeader ul, .themeHeader p.view {
     position:static;
   }
 
@@ -236,7 +236,7 @@ hr {
     padding:15px;
   }
 
-  .header ul {
+  .themeHeader ul {
     display:none;
   }
 }
